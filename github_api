@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+import requests, json
+from collections import Counter
+from dateutil.parser import parse
+
+your_github = "AlexseyWeb"
+endpoint = f"https://api.github.com/users/{your_github}/repos"
+
+repos = json.loads(requests.get(endpoint).text)
+last_5_repos = sorted(repos, key=lambda r: r["created_at"], reverse=True)[:5]
+last_5_languages = [repo["language"] for repo in last_5_repos]
+print(f"Most population languages: {last_5_languages}")
